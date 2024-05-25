@@ -1,0 +1,15 @@
+Source: cxxneverhttpd
+Section: httpd
+Priority: optional
+Maintainer: Michael Evdokimov <michael.evdokimov@gmail.com>
+Build-Depends: dpkg-dev, debhelper-compat (=13), g++, cmake, libssl-dev
+
+Package: cxxneverhttpd
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Provides: httpd
+Description: simple web server with c++ page support
+
+Package: libcxxneverhttpd-dev
+Architecture: any
+Description: cpp library for c++ page support for cxxneverhttpd
