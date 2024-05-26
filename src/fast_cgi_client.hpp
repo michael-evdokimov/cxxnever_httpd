@@ -18,7 +18,6 @@ struct FastCGIClient
 		uint16_t req_id = 0;
 		bool done = false;
 		std::string output;
-		std::mutex mutex;
 
 		~Request() { ::close(notify_fd); }
 	};
@@ -195,7 +194,6 @@ struct FastCGIClient
 				std::shared_lock list_lock {list_mutex};
 				auto req = list.at(req_id);
 				list_lock.unlock();
-				std::unique_lock lock {req->mutex};
 				req->output.append(str, str + len);
 			} else {
 				std::string s(str, str + len);

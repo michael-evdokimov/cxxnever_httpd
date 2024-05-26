@@ -49,8 +49,6 @@ struct HttpExecutorCGI : HttpExecutor
 		if (!strm.cgi_req->done)
 			return -EAGAIN;
 
-		std::unique_lock lock {strm.cgi_req->mutex};
-
 		using namespace narrow;
 
 		std::string_view output = strm.cgi_req->output;
@@ -72,7 +70,6 @@ struct HttpExecutorCGI : HttpExecutor
 		if (strm.headers.find("Content-Length") == -1)
 			strm.header("Content-Length", strm.body.size());
 
-		lock.unlock();
 		strm.cgi_req = {};
 		return 0;
 	}
