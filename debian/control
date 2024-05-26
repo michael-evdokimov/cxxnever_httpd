@@ -2,7 +2,7 @@ Source: cxxneverhttpd
 Section: httpd
 Priority: optional
 Maintainer: Michael Evdokimov <michael.evdokimov@gmail.com>
-Build-Depends: dpkg-dev, debhelper-compat (=13), g++, cmake, libssl-dev
+Build-Depends: dpkg-dev, debhelper-compat (=13), g++, cmake, libssl-dev, libsystemd-dev
 
 Package: cxxneverhttpd
 Architecture: any

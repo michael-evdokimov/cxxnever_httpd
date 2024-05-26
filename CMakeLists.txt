@@ -4,6 +4,7 @@ project(cxxnever_httpd)
 
 find_library(LIB_SSL libssl.so REQUIRED)
 find_library(LIB_CRYPTO libcrypto.so REQUIRED)
+find_library(LIB_SYSTEMD libsystemd.so REQUIRED)
 
 set(CMAKE_CXX_STANDARD "20")
 set(CMAKE_CXX_FLAGS "-ggdb3")
@@ -14,7 +15,7 @@ add_executable(cxxnever_httpd src/main.cpp ${HEADERS})
 
 target_include_directories(cxxnever_httpd PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
-target_link_libraries(cxxnever_httpd ${LIB_SSL} ${LIB_CRYPTO})
+target_link_libraries(cxxnever_httpd ${LIB_SSL} ${LIB_CRYPTO} ${LIB_SYSTEMD})
 
 install(TARGETS cxxnever_httpd DESTINATION bin)
 

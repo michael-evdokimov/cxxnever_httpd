@@ -1,4 +1,5 @@
 #include <signal.h>
+#include <systemd/sd-daemon.h>
 #include "manager_threaded.hpp"
 #include "task_server.hpp"
 #include "task_executor.hpp"
@@ -155,8 +156,12 @@ int main(int argc, const char** argv)
 	if (int r = app->open())
 		return r;
 
+	sd_notify(0, "READY=1");
+
 	while (stop == false)
 		usleep(100'000);
+
+	sd_notify(0, "STOPPING=1");
 
 	log(INFO, "Stopping");
 	app = {};
