@@ -1,4 +1,5 @@
 #pragma once
+#include <atomic>
 #include "http_executor_cgi.hpp"
 #include "manager.hpp"
 
@@ -11,7 +12,7 @@ struct ExecutorTask : Task, HttpExecutorCGI
 	std::string remote_addr;
 	std::string file_ext;
 
-	std::shared_ptr<FastCGICon> con;
+	std::atomic<std::shared_ptr<FastCGICon>> con;
 
 	int epoll_fd = -1;
 
@@ -69,11 +70,11 @@ struct ExecutorTask : Task, HttpExecutorCGI
 	            const std::vector<OneParam>& params,
 		    std::string_view input) override
 	{
-		auto con_copy = con;
+		auto con_copy = con.load();
 		if (!con_copy)
 			reconnect();
 
-		con_copy = con;
+		con_copy = con.load();
 		if (!con_copy)
 			return -1;
 
@@ -89,7 +90,7 @@ struct ExecutorTask : Task, HttpExecutorCGI
 
 	int process() override
 	{
-		auto con_copy = con;
+		auto con_copy = con.load();
 
 		if (!con_copy)
 			return -EAGAIN;
