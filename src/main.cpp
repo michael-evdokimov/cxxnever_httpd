@@ -144,6 +144,7 @@ void sigkill_catcher(int)
 int main(int argc, const char** argv)
 {
 	signal(SIGPIPE, SIG_IGN);
+	signal(SIGQUIT, sigkill_catcher);
 	signal(SIGINT, sigkill_catcher);
 
 	log(INFO, "Starting");
