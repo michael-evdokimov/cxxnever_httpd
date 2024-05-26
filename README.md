@@ -34,20 +34,3 @@ cxxnever::Pager account_ {account, "/account/([0-9]+)"};
 g++ -o libexample.cxxpage.so -shared -fPIC example.cpp
 cp libexample.cxxpage.so /var/www/html/
 ```
-
-### Installation
-
-Here is an instruction how to build package from sources and install it to Ubuntu Linux.
-
-```shell
-git clone https://github.com/michael-evdokimov/cxxnever_httpd.git
-cd cxxnever_httpd/
-dpkg-buildpackage
-sudo dpkg -i ../cxxneverhttpd_0.6ubuntu1_amd64.deb
-sudo dpkg -i ../libcxxneverhttpd-dev_0.6ubuntu1_amd64.deb
-sed -r 's/#cxxpage/cxxpage/g' -i /etc/cxxnever_httpd/httpd.conf
-sudo systemctl restart cxxneverhttpd.service
-g++ -o libexample.cxxpage.so -shared -fPIC example/example.cpp
-sudo cp libexample.cxxpage.so /var/www/html/
-```
-After these steps you can open http://localhost/example.cxxpage.so at your browser.
