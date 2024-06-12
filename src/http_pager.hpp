@@ -147,7 +147,7 @@ struct HttpPager : HttpExecutor
 		struct executing_request_t req = {};
 		req.method = convert(parser.method);
 		req.headers = convert(parser.params);
-		req.input = convert(parser.params);
+		req.input = convert(parser.input);
 		req.url = convert(parser.url_path);
 		req.path = convert(parser.path_info);
 		req.query_string = convert(parser.query_string);
